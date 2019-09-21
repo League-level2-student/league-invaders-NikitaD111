@@ -13,10 +13,10 @@ public class Rocketship extends GameObject {
        
 	}
 	public void up(){
-		y+=speed;
+		y-=speed;
 	}
 	public void down() {
-		y-=speed;
+		y+=speed;
 	}
 	public void left() {
 		x-=speed;
