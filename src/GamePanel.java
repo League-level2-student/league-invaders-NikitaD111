@@ -22,6 +22,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     Font titleFont1 = new Font("Arial", Font.PLAIN, 28);
     Font titleFont2 = new Font("Arial", Font.PLAIN, 28);
     Timer frameDraw;
+    Timer alienSpawn;
     public static BufferedImage image;
     public static boolean needImage = true;
     public static boolean gotImage = false;	
@@ -61,6 +62,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		
 	}
 	 void updateGameState() {  
+		 if (rocketship.isActive == false) {
+			currentState = END;
+		}
 		 objectManager.update();
 	 }
 	 void updateEndState()  { 
@@ -129,6 +133,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		        currentState = MENU;
 		    } else {
 		        currentState++;
+		        if(currentState == GAME) {
+		        startGame();
+		        }
 		    }
 		}	
 		if(currentState == GAME){
@@ -157,8 +164,22 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		    }
 		}
 		}
+		if (currentState == GAME) {
+			if (e.getKeyCode()==KeyEvent.VK_SPACE) {
+				objectManager.addProjectile(rocketship.getProjectile());
+
+		}
+		}
+		else if(currentState == END) {
+			alienSpawn.stop();
+		}
+		
 		
 	}
+	void startGame(){
+		alienSpawn = new Timer(1000 , objectManager);
+	    alienSpawn.start();
+		}
 	@Override
 	public void keyReleased(KeyEvent e) {
 		
