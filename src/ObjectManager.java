@@ -7,6 +7,7 @@ import java.util.Random;
 public class ObjectManager implements ActionListener {
 	Rocketship rocket;
 	Random random = new Random();
+	int score = 0;
 	ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
 	ArrayList<Alien> aliens = new ArrayList<Alien>();
 
@@ -64,10 +65,16 @@ public class ObjectManager implements ActionListener {
 			if (projectiles.get(j).rect.intersects(aliens.get(i).rect)) {
 				projectiles.get(j).isActive = false;
 				aliens.get(i).isActive = false;
+				score = score+1;
 			}
 		}
 	}
 	}
+	int get(){
+		return score;
+	}
+	
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

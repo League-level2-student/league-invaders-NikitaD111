@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -102,7 +103,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("GAME OVER", 100, 150);
 		g.setFont(titleFont1);
 		g.setColor(Color.BLACK);
-		g.drawString("You killed  enemies!", 100, 400);
+		g.drawString("You killed "+objectManager.get()+" enemies!", 100, 400);
 		g.setFont(titleFont1);
 		g.setColor(Color.BLACK);
 		g.drawString("Press ENTER to restart", 80, 550);
@@ -131,6 +132,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (e.getKeyCode()==KeyEvent.VK_ENTER) {
 		    if (currentState == END) {
 		        currentState = MENU;
+		        rocketship = new Rocketship(250, 700, 50, 50);
+		        objectManager = new ObjectManager(rocketship);
 		    } else {
 		        currentState++;
 		        if(currentState == GAME) {
@@ -173,6 +176,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		else if(currentState == END) {
 			alienSpawn.stop();
 		}
+		if(currentState == MENU) {
+			if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+				JOptionPane.showMessageDialog(null, "Press KeyEvent.VK_RIGHT to go right press KeyEvent.VK_LEFT to go left press KeyEvent.VK_UP to go up press KeyEvent.VK_DOWN to go down press KeyEvent.VK_SPACE to shoot and don't touch the stinky monkies ");
+			}
+		}
 		
 		
 	}
@@ -185,4 +193,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		
 		
 	}
+	
+	
 }
